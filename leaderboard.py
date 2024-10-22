@@ -36,7 +36,8 @@ class Leaderboard:
         for i in leaderboard:
             ui.draw_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
             y_offset += 50
-            ui.button(self.surface, 540, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav"))
+            if ui.button(self.surface, 540, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
+                return "menu"
             
         pygame.display.update()
             

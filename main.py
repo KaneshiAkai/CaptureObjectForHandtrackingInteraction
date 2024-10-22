@@ -6,6 +6,7 @@ from settings import *
 from game import Game
 from menu import Menu
 from leaderboard import Leaderboard
+from name import Name
 
 
 
@@ -43,7 +44,6 @@ def user_events():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit() 
-
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -53,23 +53,18 @@ def user_events():
                     state = "pause"
                 elif state == "pause":
                     state = "game"
-                    
-def DrawEnterName():
-    SCREEN.fill(COLORS["background"])
-    ui.draw_text(SCREEN, "Enter your name:", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["title"], font=FONTS["big"], pos_mode="center")
-    ui.draw_text(SCREEN, player, (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50), COLORS["title"], font=FONTS["big"], pos_mode="center")
-    pygame.display.update()
 
 
 
 def update():
     global state
     if state == "menu":
-        if menu.update() == "game":
+        if menu.update() == "naming":
             game.reset() 
-            state = "game"
+            state = "naming"
     elif state == "naming":
-        DrawEnterName()
+        player = Name(SCREEN).Login()
+        state = "game"
     elif state == "game":
         if game.update() == "leaderboard":
             leaderboard.WriteLeaderboard("leaderboard.csv", player, game.score)

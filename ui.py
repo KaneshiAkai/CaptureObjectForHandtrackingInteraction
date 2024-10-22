@@ -49,3 +49,21 @@ def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
         if click_sound is not None:  # Phát âm thanh nếu cần
             click_sound.play()
         return True
+    
+def input_box(surface, rect, text, font=FONTS["medium"], color=COLORS["buttons"]["text"], border_color=COLORS["buttons"]["shadow"], border_width=2):  
+    # Draw the border
+    pygame.draw.rect(surface, border_color, rect, border_width)
+    
+    # Render the text
+    text_surface = font.render(text, True, color)
+    surface.blit(text_surface, (rect.x + 5, rect.y + (rect.height - text_surface.get_height()) // 2))
+
+def text_input(event, text):
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_BACKSPACE:
+            text = text[:-1]
+        elif event.key == pygame.K_RETURN:
+            return text, True
+        else:
+            text += event.unicode
+    return text, False

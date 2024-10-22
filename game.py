@@ -60,14 +60,10 @@ class Game:
         self.hand.rect.center = (x, y)
 
     def draw(self):
-        # draw the background
         self.background.draw(self.surface)
-        # draw the objects
         for object in self.objects:
             object.draw(self.surface)
-        # draw the hand
         self.hand.draw(self.surface)
-        # draw the score
         ui.draw_text(self.surface, f"Score : {self.score}", (5, 5), COLORS["score"], font=FONTS["medium"],
                     shadow=True, shadow_color=(255,255,255))
         # draw the time left
@@ -80,9 +76,7 @@ class Game:
         self.time_left = max(round(GAME_DURATION - (time.time() - self.game_start_time), 1), 0)
 
 
-
     def update(self):
-            
         self.load_camera()
         self.set_hand_position()
         self.game_time_update()

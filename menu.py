@@ -22,7 +22,7 @@ class Menu:
     def update(self):
         self.draw()
         if ui.button(self.surface, 320, "Go Buddy", click_sound=self.getout):
-            return "game"
+            return "naming"
 
         if ui.button(self.surface, 320+BUTTONS_SIZES[1]*1.5, "Get out", click_sound=self.getout):
             pygame.quit()
