@@ -19,7 +19,7 @@ class HandTracking:
 
     def scan_hands(self, image):
         rows, cols, _ = image.shape
-
+ 
         # Flip the image horizontally for a later selfie-view display, and convert
         # the BGR image to RGB.
         image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)

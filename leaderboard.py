@@ -4,6 +4,7 @@ import pygame
 import ui
 from settings import *
 from background import Background
+import time
 
 class Leaderboard:   
     list_leaderboard = []
@@ -33,10 +34,12 @@ class Leaderboard:
         ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["title"], font=FONTS["big"], pos_mode="center")
         
         y_offset = 150
+        print("deptrai")
         for i in leaderboard:
+            print("Thisishiddenone")
             ui.draw_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
             y_offset += 50
-            if ui.button(self.surface, 540, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
+            if ui.button(self.surface, 550, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
                 return "menu"
             
         pygame.display.update()

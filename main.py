@@ -2,6 +2,7 @@ import pygame
 import sys
 import os
 import ui
+import time
 from settings import *
 from game import Game
 from menu import Menu
@@ -67,11 +68,9 @@ def update():
         state = "game"
     elif state == "game":
         if game.update() == "leaderboard":
-            leaderboard.WriteLeaderboard("leaderboard.csv", player, game.score)
             state = "leaderboard"
     elif state == "leaderboard":
-        leaderboard.DisplayLeaderboard(leaderboard_data)
-        if leaderboard.update() == "menu":
+        if leaderboard.DisplayLeaderboard(leaderboard_data) == "menu":
             state="menu"
     elif state == "pause":
         ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["title"], font=FONTS["big"], pos_mode="center")

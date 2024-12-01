@@ -14,6 +14,7 @@ class Name:
     
     def Login(self):
         self.background.draw(self.surface)
+        ui.draw_text(self.surface, "Login", (SCREEN_WIDTH // 2, 90), COLORS["title"], font=FONTS["big"], pos_mode="center")
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -21,6 +22,8 @@ class Name:
                     sys.exit()
                 self.input_text, enter_pressed = ui.text_input(event, self.input_text)
                 if enter_pressed:
+                    with open("leaderboard.csv", "a", newline='') as file:
+                        file.write(f"{self.input_text},0\n")
                     return self.input_text
-            ui.input_box(self.surface, self.input_box, self.input_text, self.font)
+            ui.draw_input_box(self.surface, self.input_box, self.input_text, self.font)
             pygame.display.flip()

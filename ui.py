@@ -48,7 +48,9 @@ def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
     if on_button and pygame.mouse.get_pressed()[0]:  # Nếu người dùng nhấn vào button
         if click_sound is not None:  # Phát âm thanh nếu cần
             click_sound.play()
+        pygame.event.clear(pygame.MOUSEBUTTONDOWN)  # Clear mouse button down events to prevent affecting the next button
         return True
+    return False
     
 def input_box(surface, rect, text, font=FONTS["medium"], color=COLORS["buttons"]["text"], border_color=COLORS["buttons"]["shadow"], border_width=2):  
     # Draw the border
@@ -67,3 +69,11 @@ def text_input(event, text):
         else:
             text += event.unicode
     return text, False
+
+def draw_input_box(surface, rect, text, font=FONTS["medium"], color=COLORS["buttons"]["text"], border_color=COLORS["buttons"]["shadow"], border_width=2):
+    # Draw the border
+    pygame.draw.rect(surface, border_color, rect, border_width)
+    
+    # Render the text
+    text_surface = font.render(text, True, color)
+    surface.blit(text_surface, (rect.x + 5, rect.y + (rect.height - text_surface.get_height()) // 2))
