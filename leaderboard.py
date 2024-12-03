@@ -17,12 +17,13 @@ class Leaderboard:
         with open(file_path, mode='r') as file:
             reader = csv.reader(file)
             for row in reader:
+                # if len(row) >= 2:
                 Leaderboard.list_leaderboard.append({'player': row[0], 'score': int(row[1])})
         return Leaderboard.list_leaderboard
     
             
-    def WriteLeaderboard(self, file_path, player, score):
-        with open(file_path, 'w', newline='') as file:
+    def  WriteLeaderboard(file_path, player, score):
+        with open(file_path, 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([player, score])
 

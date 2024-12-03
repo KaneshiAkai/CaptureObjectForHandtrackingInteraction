@@ -28,13 +28,13 @@ pygame.mixer.music.set_volume(MUSIC_VOLUME)
 pygame.mixer.music.play(-1)
 # Variables
 state = "menu"
-leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
 player = ''
-
+# leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
 # Creation 
-game = Game(SCREEN)
+game = Game(SCREEN, player)
 menu = Menu(SCREEN)
 leaderboard = Leaderboard(SCREEN)
+count = 0
 
 
 
@@ -58,19 +58,24 @@ def user_events():
 
 
 def update():
-    global state
+    global state, player, count, leaderboard_data
     if state == "menu":
         if menu.update() == "naming":
             game.reset() 
             state = "naming"
     elif state == "naming":
         player = Name(SCREEN).Login()
+        game.player = player 
         state = "game"
     elif state == "game":
         if game.update() == "leaderboard":
             state = "leaderboard"
     elif state == "leaderboard":
+        if count == 0:
+            leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
+            count += 1
         if leaderboard.DisplayLeaderboard(leaderboard_data) == "menu":
+            count = 0
             state="menu"
     elif state == "pause":
         ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["title"], font=FONTS["big"], pos_mode="center")

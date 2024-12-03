@@ -22,8 +22,6 @@ class Name:
                     sys.exit()
                 self.input_text, enter_pressed = ui.text_input(event, self.input_text)
                 if enter_pressed:
-                    with open("leaderboard.csv", "a", newline='') as file:
-                        file.write(f"{self.input_text},0\n")
                     return self.input_text
             ui.draw_input_box(self.surface, self.input_box, self.input_text, self.font)
             pygame.display.flip()
