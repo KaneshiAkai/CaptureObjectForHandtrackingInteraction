@@ -63,10 +63,15 @@ def update():
         if menu.update() == "naming":
             game.reset() 
             state = "naming"
+        elif menu.update() == "leaderboard":
+            state = "leaderboard"
     elif state == "naming":
         player = Name(SCREEN).Login()
-        game.player = player 
-        state = "game"
+        if player == "menu":
+            state = "menu"
+        else:
+            game.player = player 
+            state = "game"
     elif state == "game":
         if game.update() == "leaderboard":
             state = "leaderboard"
@@ -75,6 +80,7 @@ def update():
             leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
             count += 1
         if leaderboard.DisplayLeaderboard(leaderboard_data) == "menu":
+            del leaderboard_data
             count = 0
             state="menu"
     elif state == "pause":

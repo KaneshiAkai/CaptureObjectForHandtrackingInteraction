@@ -24,4 +24,6 @@ class Name:
                 if enter_pressed:
                     return self.input_text
             ui.draw_input_box(self.surface, self.input_box, self.input_text, self.font)
+            if ui.button(self.surface, 600, "Quit", click_sound=None):
+                return "menu"
             pygame.display.flip()

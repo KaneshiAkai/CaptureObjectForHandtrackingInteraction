@@ -12,13 +12,14 @@ class Leaderboard:
         self.surface = surface
         self.background = Background()
         self.image = image.load(image_path, size=(SCREEN_WIDTH, SCREEN_HEIGHT), convert="default")
-    
+
     def ReadLeaderboard(file_path):
         with open(file_path, mode='r') as file:
             reader = csv.reader(file)
             for row in reader:
                 # if len(row) >= 2:
                 Leaderboard.list_leaderboard.append({'player': row[0], 'score': int(row[1])})
+        Leaderboard.list_leaderboard.sort(key=lambda arrange: arrange['score'], reverse=True)
         return Leaderboard.list_leaderboard
     
             
@@ -36,12 +37,16 @@ class Leaderboard:
         
         y_offset = 150
         print("deptrai")
+        n=0
         for i in leaderboard:
-            print("Thisishiddenone")
-            ui.draw_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
-            y_offset += 50
-            if ui.button(self.surface, 550, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
-                return "menu"
+            if n<8:
+                print("Thisishiddenone")
+                ui.draw_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
+                y_offset += 50
+                if ui.button(self.surface, 600, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
+                    Leaderboard.list_leaderboard.clear()
+                    return "menu"
+            n+=1
             
         pygame.display.update()
             

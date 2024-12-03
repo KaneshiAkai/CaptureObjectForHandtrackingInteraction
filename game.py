@@ -100,6 +100,7 @@ class Game:
         else: 
             if ui.button(self.surface, 400, "Continue", click_sound=self.sounds["getout"]):
                 Leaderboard.WriteLeaderboard("leaderboard.csv", self.player, self.score)
+                # Leaderboard.list_leaderboard.sort(subject: leaderboard.score)
                 return "leaderboard"
 
         cv2.imshow("Frame", self.frame)

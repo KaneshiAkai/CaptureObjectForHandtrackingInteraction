@@ -17,13 +17,16 @@ class Menu:
         # draw title
         ui.draw_text(self.surface, GAME_TITLE, (SCREEN_WIDTH//2, 120), COLORS["title"], font=FONTS["big"],
                     shadow=True, shadow_color=(255,255,255), pos_mode="center")
-        ui.draw_text(self.surface, "I will, VENTURE FORTH to the HUNT ", (SCREEN_WIDTH//3.2, 190), COLORS["quote"], font=FONTS["small"], shadow=False, shadow_color=None)
+        # ui.draw_text(self.surface, "I will, VENTURE FORTH to the HUNT ", (SCREEN_WIDTH//3.2, 190), COLORS["quote"], font=FONTS["small"], shadow=False, shadow_color=None)
 
     def update(self):
         self.draw()
-        if ui.button(self.surface, 320, "Go Buddy", click_sound=self.getout):
+        if ui.button(self.surface, 340-BUTTONS_SIZES[1]*1.5, "Go Buddy", click_sound=self.getout):
             return "naming"
+        
+        if ui.button(self.surface, 340, "Leaderboard", click_sound=self.getout):
+            return "leaderboard"
 
-        if ui.button(self.surface, 320+BUTTONS_SIZES[1]*1.5, "Get out", click_sound=self.getout):
+        if ui.button(self.surface, 340+BUTTONS_SIZES[1]*1.5, "Get out", click_sound=self.getout):
             pygame.quit()
             sys.exit()
