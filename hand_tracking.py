@@ -15,6 +15,7 @@ class HandTracking:
         self.hand_y = 0
         self.results = None
         self.hand_closed = False
+        self.hand_detected = False
 
 
     def scan_hands(self, image):
@@ -33,8 +34,10 @@ class HandTracking:
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
         self.hand_closed = False
+        self.hand_detected = False 
 
         if self.results.multi_hand_landmarks:
+            self.hand_detected = True
             for hand_landmarks in self.results.multi_hand_landmarks:
                 x, y = hand_landmarks.landmark[9].x, hand_landmarks.landmark[9].y
 

@@ -2,7 +2,7 @@ import pygame
 from settings import *
 
 def draw_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_left",
-                shadow=True, shadow_color=(255, 255, 255), shadow_offset=2):
+                shadow=True, shadow_color=(0,0,0), shadow_offset=2):
     label = font.render(text, 1, color)
     label_rect = label.get_rect()
     if pos_mode == "top_left":
@@ -16,18 +16,48 @@ def draw_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_lef
 
     surface.blit(label, label_rect) # draw the text
 
+def draw__white_border_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_left",
+                shadow=True, shadow_color=(255,255,255), shadow_offset=2):
+    label = font.render(text, 1, color)
+    label_rect = label.get_rect()
+    if pos_mode == "top_left":
+        label_rect.x, label_rect.y = pos
+    elif pos_mode == "center":
+        label_rect.center = pos
 
-def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
+    if shadow: # make the shadow
+        label_shadow = font.render(text, 1, shadow_color)
+        surface.blit(label_shadow, (label_rect.x - shadow_offset, label_rect.y + shadow_offset))
+
+    surface.blit(label, label_rect)
+
+def score_button(surface,pos_x, pos_y, color):
     width, height = BUTTONS_SIZES
-    center_x = SCREEN_WIDTH // 2
     offset = 20  # Độ lệch để tạo hình bình hành
 
     # Tạo các điểm cho hình bình hành
     points = [
-        (center_x - width // 2 + offset, pos_y),
-        (center_x + width // 2 + offset, pos_y),
-        (center_x + width // 2 - offset, pos_y + height),
-        (center_x - width // 2 - offset, pos_y + height)
+        (pos_x - width // 2 + offset, pos_y),
+        (pos_x + width // 2 + offset, pos_y),
+        (pos_x + width // 2 - offset, pos_y + height),
+        (pos_x - width // 2 - offset, pos_y + height)
+    ]
+
+
+    pygame.draw.polygon(surface, color, points)  # Vẽ hình bình hành
+
+
+def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
+    width, height = BUTTONS_SIZES
+    pos_x = SCREEN_WIDTH // 2
+    offset = 20  # Độ lệch để tạo hình bình hành
+
+    # Tạo các điểm cho hình bình hành
+    points = [
+        (pos_x - width // 2 + offset, pos_y),
+        (pos_x + width // 2 + offset, pos_y),
+        (pos_x + width // 2 - offset, pos_y + height),
+        (pos_x - width // 2 - offset, pos_y + height)
     ]
 
     on_button = False
@@ -42,7 +72,7 @@ def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
 
     # Vẽ text
     if text is not None:
-        draw_text(surface, text, (center_x, pos_y + height // 2), COLORS["buttons"]["text"], font=font, pos_mode="center",
+        draw_text(surface, text, (pos_x, pos_y + height // 2), COLORS["buttons"]["text"], font=font, pos_mode="center",
                   shadow=True, shadow_color=COLORS["buttons"]["shadow"])
 
     if on_button and pygame.mouse.get_pressed()[0]:  # Nếu người dùng nhấn vào button
@@ -70,10 +100,13 @@ def text_input(event, text):
             text += event.unicode
     return text, False
 
-def draw_input_box(surface, rect, text, font=FONTS["medium"], color=COLORS["buttons"]["text"], border_color=COLORS["buttons"]["shadow"], border_width=2):
+def draw_input_box(surface, rect, text, font=FONTS["medium"], color=COLORS["black"], border_color=COLORS["buttons"]["shadow"], border_width=2):
     # Draw the border
     pygame.draw.rect(surface, border_color, rect, border_width)
     
     # Render the text
     text_surface = font.render(text, True, color)
     surface.blit(text_surface, (rect.x + 5, rect.y + (rect.height - text_surface.get_height()) // 2))
+    
+    
+    

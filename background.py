@@ -4,7 +4,7 @@ from settings import *
 
 class Background:
     def __init__(self):
-        self.image = image.load("Assets/background.jpg", size=(SCREEN_WIDTH, SCREEN_HEIGHT),
+        self.image = image.load("Assets/background.png", size=(SCREEN_WIDTH, SCREEN_HEIGHT),
                                 convert="default")
 
 

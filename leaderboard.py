@@ -8,11 +8,12 @@ import time
 
 class Leaderboard:   
     list_leaderboard = []
-    def __init__(self, surface, image_path="Assets/background.jpg"):
+    def __init__(self, surface, image_path="Assets/background.png"):
         self.surface = surface
         self.background = Background()
         self.image = image.load(image_path, size=(SCREEN_WIDTH, SCREEN_HEIGHT), convert="default")
-
+        self.design = image.load("Assets/design.jpg", size=(300, 300))
+        
     def ReadLeaderboard(file_path):
         with open(file_path, mode='r') as file:
             reader = csv.reader(file)
@@ -33,9 +34,10 @@ class Leaderboard:
     
     def DisplayLeaderboard(self, leaderboard):
         self.draw(self.surface)
+        image.draw(self.surface, self.design, (SCREEN_WIDTH // 3, 300), pos_mode="center")
         ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["title"], font=FONTS["big"], pos_mode="center")
         
-        y_offset = 150
+        y_offset = 200
         print("deptrai")
         n=0
         for i in leaderboard:
@@ -43,7 +45,7 @@ class Leaderboard:
                 print("Thisishiddenone")
                 ui.draw_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
                 y_offset += 50
-                if ui.button(self.surface, 600, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
+                if ui.button(self.surface, 700, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
                     Leaderboard.list_leaderboard.clear()
                     return "menu"
             n+=1

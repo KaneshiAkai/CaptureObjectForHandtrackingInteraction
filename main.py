@@ -8,11 +8,12 @@ from game import Game
 from menu import Menu
 from leaderboard import Leaderboard
 from name import Name
+from hand_tracking import HandTracking
 
 
 
 # Setup pygame
-os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (300,100) # windows position
+os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (70,50) # windows position
 pygame.init()
 pygame.display.set_caption(WINDOW_NAME)
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT),0,32)
@@ -35,7 +36,7 @@ game = Game(SCREEN, player)
 menu = Menu(SCREEN)
 leaderboard = Leaderboard(SCREEN)
 count = 0
-
+# HandPause = False
 
 
 # Function
@@ -49,19 +50,21 @@ def user_events():
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 sys.exit()
-            elif event.key == pygame.K_q:
+            elif (event.key == pygame.K_q):
                 if state == "game":
+                    game.pause_start_time = time.time()
                     state = "pause"
                 elif state == "pause":
+                    game.game_start_time += time.time() - game.pause_start_time 
+                    game.pause_start_time = None
                     state = "game"
 
-
+# HandTracking.display_hand(SCREEN)
 
 def update():
-    global state, player, count, leaderboard_data
+    global state, player, count, leaderboard_data, HandPause
     if state == "menu":
         if menu.update() == "naming":
-            game.reset() 
             state = "naming"
         elif menu.update() == "leaderboard":
             state = "leaderboard"
@@ -72,9 +75,13 @@ def update():
         else:
             game.player = player 
             state = "game"
+            game.reset() 
     elif state == "game":
         if game.update() == "leaderboard":
             state = "leaderboard"
+        if game.update() == "pause":
+            game.pause_start_time = time.time()
+            state = "pause"
     elif state == "leaderboard":
         if count == 0:
             leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
@@ -84,7 +91,15 @@ def update():
             count = 0
             state="menu"
     elif state == "pause":
-        ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["title"], font=FONTS["big"], pos_mode="center")
+        ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["red"], font=FONTS["big"], pos_mode="center")
+        ui.draw_text(SCREEN, "Press \"Q\" to continue playing", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5), COLORS["orange"], font=FONTS["medium"], pos_mode="center")
+        game.load_camera()
+        game.set_hand_position()
+        if game.hand_tracking.hand_detected:
+            # HandPause = False
+            game.game_start_time += time.time() - game.pause_start_time 
+            game.pause_start_time = None
+            state = "game"
         if ui.button(SCREEN, SCREEN_HEIGHT // 2, "Quit", click_sound=pygame.mixer.Sound("Assets/Sounds/getout.wav")):
             state = "leaderboard"
     pygame.display.update()
