@@ -74,10 +74,10 @@ class Game:
         ui.score_button(self.surface, 100, 94, COLORS["blue"])
         ui.score_button(self.surface, 90, 100, COLORS["navy"])
         ui.draw_text(self.surface, f"Score : {self.score}", (10, 113), COLORS["yellow"], font=FONTS["medium"],
-                    shadow=True, shadow_color=(255,255,255))
+                    shadow=False)
         timer_text_color = (160, 40, 0) if self.time_left < 5 else COLORS["timer"] # change the text color if less than 5 s left
         ui.draw_text(self.surface, f"Time left : {self.time_left}", (SCREEN_WIDTH//3, 5),  timer_text_color, font=FONTS["medium"],
-                    shadow=True, shadow_color=(255,255,255))
+                    shadow=False)
 
 
     def game_time_update(self):

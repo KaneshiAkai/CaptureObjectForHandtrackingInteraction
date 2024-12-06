@@ -87,7 +87,6 @@ def update():
             game.pause_start_time = time.time()
             state = "pause"
     elif state == "leaderboard":
-        print("leader3")
         if count == 0:
             leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
             count += 1
@@ -97,7 +96,7 @@ def update():
             state="menu"
     elif state == "pause":
         ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["red"], font=FONTS["big"], pos_mode="center")
-        ui.draw_text(SCREEN, "Press \"Q\" to continue playing", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5), COLORS["orange"], font=FONTS["medium"], pos_mode="center")
+        ui.draw_text(SCREEN, "No Hand detected !!!", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5), COLORS["orange"], font=FONTS["medium"], pos_mode="center")
         game.load_camera()
         game.set_hand_position()
         if game.hand_tracking.hand_detected:

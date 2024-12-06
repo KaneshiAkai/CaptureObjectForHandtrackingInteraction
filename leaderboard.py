@@ -34,15 +34,13 @@ class Leaderboard:
     def DisplayLeaderboard(self, leaderboard):
         self.draw(self.surface)
         image.draw(self.surface, self.design, (SCREEN_WIDTH // 1.3, 300), pos_mode="center")
-        ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["title"], font=FONTS["big"], pos_mode="center")
+        ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["quote"], font=FONTS["big"], pos_mode="center")
         
         y_offset = 200
-        print("deptrai")
         n=0
         for i in leaderboard:
             if n<8:
-                print("Thisishiddenone")
-                ui.draw_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
+                ui.draw__white_border_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['black'], font=FONTS["medium"], pos_mode="center")
                 y_offset += 50
                 if ui.button(self.surface, 700, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
                     Leaderboard.list_leaderboard.clear()

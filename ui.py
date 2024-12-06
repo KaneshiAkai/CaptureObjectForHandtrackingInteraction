@@ -8,7 +8,7 @@ last_click_time = 0
 CLICK_COOLDOWN = 0.5
 
 def draw_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_left",
-                shadow=True, shadow_color=(0,0,0), shadow_offset=2):
+                shadow=True, shadow_color=(0,0,0), shadow_offset=3):  # Increased shadow_offset
     label = font.render(text, 1, color)
     label_rect = label.get_rect()
     if pos_mode == "top_left":
@@ -23,7 +23,7 @@ def draw_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_lef
     surface.blit(label, label_rect) # draw the text
 
 def draw__white_border_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_left",
-                shadow=True, shadow_color=(255,255,255), shadow_offset=2):
+                shadow=True, shadow_color=(255,255,255), shadow_offset=3):  # Increased shadow_offset
     label = font.render(text, 1, color)
     label_rect = label.get_rect()
     if pos_mode == "top_left":
