@@ -83,6 +83,7 @@ def update():
             state = "leaderboard"
         if game.update() == "pause":
             game.pause_start_time = time.time()
+            state = "pause"
     elif state == "leaderboard":
         if count == 0:
             leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")

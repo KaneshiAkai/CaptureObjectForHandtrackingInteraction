@@ -34,7 +34,7 @@ class Leaderboard:
     
     def DisplayLeaderboard(self, leaderboard):
         self.draw(self.surface)
-        image.draw(self.surface, self.design, (SCREEN_WIDTH // 3, 300), pos_mode="center")
+        image.draw(self.surface, self.design, (SCREEN_WIDTH // 1.3, 300), pos_mode="center")
         ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["title"], font=FONTS["big"], pos_mode="center")
         
         y_offset = 200

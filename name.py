@@ -23,8 +23,8 @@ class Name:
 
     def Login(self):
         self.background.draw(self.surface)
-        image.draw(self.surface, self.logo, (SCREEN_WIDTH // 2, 100), pos_mode="center")
-        image.draw(self.surface, self.design, (SCREEN_WIDTH // 3.8, 200), pos_mode="center")
+        image.draw(self.surface, self.logo, (SCREEN_WIDTH // 2, 120), pos_mode="center")
+        image.draw(self.surface, self.design, (SCREEN_WIDTH // 3.8, 300), pos_mode="center")
         ui.draw__white_border_text(self.surface, "Login", (SCREEN_WIDTH // 2, 300), COLORS["black"], font=FONTS["big"], pos_mode="center")
         while True:
             for event in pygame.event.get():

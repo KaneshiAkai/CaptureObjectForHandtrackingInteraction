@@ -1,5 +1,7 @@
 import pygame
 from settings import *
+import image
+import webbrowser
 
 def draw_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_left",
                 shadow=True, shadow_color=(0,0,0), shadow_offset=2):
@@ -167,3 +169,17 @@ def draw_gradient_frame(surface, x, y, width, height, thickness, color_start, co
                 color_start[2] + (color_end[2] - color_start[2]) * i // thickness,
             )
             pygame.draw.rect(surface, color, (x - width // 2 - i, y - height // 2 - i, width + 2 * i, height + 2 * i), 1)
+            
+def linkWordpress (surface, pic, pos_x, pos_y):
+    image.draw(surface, pic, (pos_x, pos_y), pos_mode="center")
+    rect = pygame.Rect((pos_x - pic.get_width() // 2, pos_y - pic.get_height() // 2), (pic.get_width(), pic.get_height()))
+    
+    if rect.collidepoint(pygame.mouse.get_pos()):
+        pic.set_alpha(200)  # Make the image lighter
+        if pygame.mouse.get_pressed()[0]:
+            webbrowser.open("https://bmeelearning.wordpress.com/2024/12/01/20241-et2031e-152560-group-19-capture-objects-for-hand-tracking-interraction/")
+            return True
+    else:
+        pic.set_alpha(255)  # Reset to original color
+
+    return False

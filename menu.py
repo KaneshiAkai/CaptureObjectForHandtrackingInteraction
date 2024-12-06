@@ -14,11 +14,12 @@ class Menu:
         self.getout = pygame.mixer.Sound(f"Assets/Sounds/getout.wav")
         self.logo = image.load("Assets/logo.png", size=(700, 230))
         self.design = image.load("Assets/design.jpg", size=(300, 300))
+        self.wordpress = image.load("Assets/wordpress.png", size=(200, 200))
 
     def draw(self):
         self.background.draw(self.surface)
         image.draw(self.surface, self.logo, (SCREEN_WIDTH // 2, 120), pos_mode="center")
-        image.draw(self.surface, self.design, (SCREEN_WIDTH // 1.3, 300), pos_mode="center")
+        image.draw(self.surface, self.design, (SCREEN_WIDTH // 3.8, 300), pos_mode="center")
         # draw title
         # ui.draw_text(self.surface, GAME_TITLE, (SCREEN_WIDTH//2, 120), COLORS["title"], font=FONTS["big"],
         #             shadow=True, shadow_color=(255,255,255), pos_mode="center")
@@ -34,6 +35,8 @@ class Menu:
         
         if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=None):
             return "contributor"
+        
+        ui.linkWordpress(self.surface, self.wordpress, 1400, 150)
 
         if ui.button(self.surface, 400+BUTTONS_SIZES[1]*1.5, "Get out", click_sound=self.getout):
             pygame.quit()

@@ -25,6 +25,7 @@ class Contributor:
 
     def draw(self, surface):
         image.draw(surface, self.image, (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), pos_mode="center")
+        image.draw(surface, self.design, (SCREEN_WIDTH // 1.3, 650), pos_mode="center")
         for contributor in self.contributor:
             x_offset = 400
             y_offset = 250
@@ -32,7 +33,7 @@ class Contributor:
                 image.draw(self.surface, contributor["image"], (x_offset,  y_offset), pos_mode="center")
                 ui.draw_text(self.surface, contributor["name"], (x_offset, y_offset + 260), COLORS["yellow"], font=FONTS["medium"], pos_mode="center")
                 x_offset += 800
-            if ui.rect_button(self.surface, 600, "Special Thank", click_sound=None):
+            if ui.rect_button(self.surface, 600, "Special Thanks", click_sound=None):
                 return "thanks"
 
     def update(self):
@@ -44,6 +45,7 @@ class Contributor:
         
     def draw_thanks(self, surface):
         image.draw(surface, self.image, (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), pos_mode="center")
+        image.draw(surface, self.design, (SCREEN_WIDTH // 7, 100), pos_mode="center")
         ui.draw_text(self.surface, "Special Thanks", (SCREEN_WIDTH // 2, 80), COLORS["yellow"], font=FONTS["big"], pos_mode="center")
         x_offset = 300
         y_offset = 370
