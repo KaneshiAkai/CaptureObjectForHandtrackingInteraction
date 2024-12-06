@@ -31,6 +31,9 @@ class Menu:
         
         if ui.button(self.surface, 400, "Leaderboard", click_sound=None):
             return "leaderboard"
+        
+        if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=None):
+            return "contributor"
 
         if ui.button(self.surface, 400+BUTTONS_SIZES[1]*1.5, "Get out", click_sound=self.getout):
             pygame.quit()

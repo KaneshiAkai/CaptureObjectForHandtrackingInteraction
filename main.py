@@ -8,7 +8,7 @@ from game import Game
 from menu import Menu
 from leaderboard import Leaderboard
 from name import Name
-from hand_tracking import HandTracking
+from contributor import Contributor
 
 
 
@@ -35,6 +35,7 @@ player = ''
 game = Game(SCREEN, player)
 menu = Menu(SCREEN)
 leaderboard = Leaderboard(SCREEN)
+contributor = Contributor(SCREEN)
 count = 0
 # HandPause = False
 
@@ -58,7 +59,6 @@ def user_events():
                     game.game_start_time += time.time() - game.pause_start_time 
                     game.pause_start_time = None
                     state = "game"
-
 # HandTracking.display_hand(SCREEN)
 
 def update():
@@ -68,6 +68,8 @@ def update():
             state = "naming"
         elif menu.update() == "leaderboard":
             state = "leaderboard"
+        elif menu.update() == "contributor":
+            state = "contributor"
     elif state == "naming":
         player = Name(SCREEN).Login()
         if player == "menu":
@@ -81,7 +83,6 @@ def update():
             state = "leaderboard"
         if game.update() == "pause":
             game.pause_start_time = time.time()
-            state = "pause"
     elif state == "leaderboard":
         if count == 0:
             leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
@@ -102,6 +103,14 @@ def update():
             state = "game"
         if ui.button(SCREEN, SCREEN_HEIGHT // 2, "Quit", click_sound=pygame.mixer.Sound("Assets/Sounds/getout.wav")):
             state = "leaderboard"
+    elif state == "contributor":
+        if contributor.update() == "menu":
+            state = "menu"
+        if contributor.update() == "thanks":
+            state = "thanks"
+    elif state == "thanks":
+        if contributor.draw_thanks(SCREEN) == "menu":
+            state = "menu"
     pygame.display.update()
     mainClock.tick(FPS)
     
