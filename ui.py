@@ -2,6 +2,10 @@ import pygame
 from settings import *
 import image
 import webbrowser
+import time 
+
+last_click_time = 0
+CLICK_COOLDOWN = 0.5
 
 def draw_text(surface, text, pos, color, font=FONTS["medium"], pos_mode="top_left",
                 shadow=True, shadow_color=(0,0,0), shadow_offset=2):
@@ -50,6 +54,7 @@ def score_button(surface,pos_x, pos_y, color):
 
 
 def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
+    global last_click_time
     width, height = BUTTONS_SIZES
     pos_x = SCREEN_WIDTH // 2
     offset = 20  # Độ lệch để tạo hình bình hành
@@ -77,11 +82,13 @@ def button(surface, pos_y, text=None, click_sound=None, font=FONTS["medium"]):
         draw_text(surface, text, (pos_x, pos_y + height // 2), COLORS["buttons"]["text"], font=font, pos_mode="center",
                   shadow=True, shadow_color=COLORS["buttons"]["shadow"])
 
+    current_time = time.time()
     if on_button and pygame.mouse.get_pressed()[0]:  # Nếu người dùng nhấn vào button
-        if click_sound is not None:  # Phát âm thanh nếu cần
-            click_sound.play()
-        pygame.event.clear(pygame.MOUSEBUTTONDOWN)  # Clear mouse button down events to prevent affecting the next button
-        return True
+        if current_time - last_click_time > CLICK_COOLDOWN:  # Check if cooldown period has passed
+            last_click_time = current_time  # Update the last click time
+            if click_sound is not None:  # Phát âm thanh nếu cần
+                click_sound.play()
+            return True
     return False
     
 def input_box(surface, rect, text, font=FONTS["medium"], color=COLORS["buttons"]["text"], border_color=COLORS["buttons"]["shadow"], border_width=2):  

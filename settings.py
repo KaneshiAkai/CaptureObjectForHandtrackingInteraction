@@ -24,7 +24,7 @@ DRAW_HITBOX = False # will draw all the hitbox
 ANIMATION_SPEED = 0.08 # the frame of the insects will change every X sec
 
 # difficulty
-GAME_DURATION = 10
+GAME_DURATION = 60
 CRYSTALFLYS_SPAWN_TIME = 1
 CRYSTALFLYS_MOVE_SPEED = {"min": 1, "max": 5}
 OCTOBABY_PENALITY = 1 

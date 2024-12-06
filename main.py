@@ -64,11 +64,13 @@ def user_events():
 def update():
     global state, player, count, leaderboard_data, HandPause
     if state == "menu":
-        if menu.update() == "naming":
+        menu_result = menu.update()
+        if menu_result == "naming":
             state = "naming"
-        elif menu.update() == "leaderboard":
+        elif menu_result == "leaderboard":
+            print("leader2")
             state = "leaderboard"
-        elif menu.update() == "contributor":
+        elif menu_result == "contributor":
             state = "contributor"
     elif state == "naming":
         player = Name(SCREEN).Login()
@@ -85,6 +87,7 @@ def update():
             game.pause_start_time = time.time()
             state = "pause"
     elif state == "leaderboard":
+        print("leader3")
         if count == 0:
             leaderboard_data = Leaderboard.ReadLeaderboard("leaderboard.csv")
             count += 1
@@ -103,7 +106,7 @@ def update():
             game.pause_start_time = None
             state = "game"
         if ui.button(SCREEN, SCREEN_HEIGHT // 2, "Quit", click_sound=pygame.mixer.Sound("Assets/Sounds/getout.wav")):
-            state = "leaderboard"
+            state = "menu"
     elif state == "contributor":
         if contributor.update() == "menu":
             state = "menu"

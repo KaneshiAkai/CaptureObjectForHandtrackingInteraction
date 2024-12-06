@@ -31,6 +31,7 @@ class Menu:
             return "naming"
         
         if ui.button(self.surface, 400, "Leaderboard", click_sound=None):
+            print("leader")
             return "leaderboard"
         
         if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=None):

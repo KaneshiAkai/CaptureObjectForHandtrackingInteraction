@@ -4,7 +4,6 @@ import pygame
 import ui
 from settings import *
 from background import Background
-import time
 
 class Leaderboard:   
     list_leaderboard = []
@@ -49,6 +48,6 @@ class Leaderboard:
                     Leaderboard.list_leaderboard.clear()
                     return "menu"
             n+=1
-            
+        
         pygame.display.update()
             
