@@ -40,7 +40,7 @@ class Leaderboard:
         n=0
         for i in leaderboard:
             if n<8:
-                ui.draw__white_border_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['black'], font=FONTS["medium"], pos_mode="center")
+                ui.draw__white_border_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['mocha'], font=FONTS["medium"], pos_mode="center")
                 y_offset += 50
                 if ui.button(self.surface, 700, "Back to Menu", click_sound = pygame.mixer.Sound("Assets/Sounds/getout.wav")):
                     Leaderboard.list_leaderboard.clear()

@@ -95,8 +95,8 @@ def update():
             count = 0
             state="menu"
     elif state == "pause":
-        ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["red"], font=FONTS["big"], pos_mode="center")
-        ui.draw_text(SCREEN, "No Hand detected !!!", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5), COLORS["orange"], font=FONTS["medium"], pos_mode="center")
+        ui.draw_text(SCREEN, "Paused", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50), COLORS["quote"], font=FONTS["big"], pos_mode="center")
+        ui.draw_text(SCREEN, "No Hand detected !!!", (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.5), COLORS["quote"], font=FONTS["medium"], pos_mode="center")
         game.load_camera()
         game.set_hand_position()
         if game.hand_tracking.hand_detected:

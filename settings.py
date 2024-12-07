@@ -35,7 +35,7 @@ COLORS = {"title": (38, 61, 39), "score": (38, 61, 39), "timer": (204, 255, 51),
                         "text": (255, 255, 255), "shadow": (46, 54, 163)},
             "white": (255, 255, 255), "black": (0, 0, 0), "red": (255, 0, 0), "green": (0, 255, 0), "blue": (0, 255, 255),
             "yellow": (255, 255, 0), "orange": (255, 165, 0), "purple": (128, 0, 128), "gray": (128, 128, 128),
-            "navy": (0, 0, 100), "pink": (255, 192, 203), "light_red": (255, 99, 71)} 
+            "navy": (0, 0, 100), "pink": (255, 192, 203), "light_red": (255, 99, 71), "mocha": (164,120,100)} 
 # sounds / music
 MUSIC_VOLUME = 0.16 # value between 0 and 1
 SOUNDS_VOLUME = 1

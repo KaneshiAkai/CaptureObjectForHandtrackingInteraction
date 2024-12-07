@@ -46,7 +46,7 @@ class Contributor:
     def draw_thanks(self, surface):
         image.draw(surface, self.image, (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), pos_mode="center")
         image.draw(surface, self.design, (SCREEN_WIDTH // 7, 100), pos_mode="center")
-        ui.draw_text(self.surface, "Special Thanks", (SCREEN_WIDTH // 2, 80), COLORS["yellow"], font=FONTS["big"], pos_mode="center")
+        ui.draw_text(self.surface, "Special Thanks", (SCREEN_WIDTH // 2, 80), COLORS["quote"], font=FONTS["big"], pos_mode="center")
         x_offset = 300
         y_offset = 370
         frame_color_start = COLORS["black"]
