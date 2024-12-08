@@ -5,6 +5,8 @@ GAME_TITLE = WINDOW_NAME
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1600, 800
 
+CLICK_COOLDOWN = 0.5
+
 FPS = 90
 DRAW_FPS = True
 
@@ -27,8 +29,8 @@ ANIMATION_SPEED = 0.08 # the frame of the insects will change every X sec
 GAME_DURATION = 60
 CRYSTALFLYS_SPAWN_TIME = 1
 CRYSTALFLYS_MOVE_SPEED = {"min": 1, "max": 5}
-CRYSTALFLYS_MOVE_SPEED_LEVEL_2 = {"min": 4, "max": 9}
-CRYSTALFLYS_MOVE_SPEED_LEVEL_3 = {"min": 7, "max": 14}
+CRYSTALFLYS_MOVE_SPEED_LEVEL_2 = {"min": 6, "max": 12}
+CRYSTALFLYS_MOVE_SPEED_LEVEL_3 = {"min": 10, "max": 20}
 OCTOBABY_PENALITY = 1 
 
 # colors
@@ -45,6 +47,14 @@ SOUNDS_VOLUME = 1
 # fonts
 pygame.font.init()
 FONTS = {}
+FONTS["supersmall"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 30)
 FONTS["small"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 40)
 FONTS["medium"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 50)
 FONTS["big"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 100)
+
+#music
+PassingMemories = "Assets/Sounds/Passing Memories (feat. Faouzia) (Genshin Impact's 4Th Anniversary English Theme Song).mp3"
+TowardTheLight = "Assets/Sounds/Jacoo - Towards The Light.mp3"
+DieForYou = "Assets/Sounds/Die For You ft. Grabbitz  Official Music Video  VALORANT Champions 2021.mp3"
+ElectroSwing = "Assets/Sounds/iluvvmyclique - Electro Swing (sped up).mp3"
+TenderStrength = "Assets/Sounds/Tender Strength.mp3"

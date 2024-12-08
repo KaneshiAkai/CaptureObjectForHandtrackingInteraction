@@ -72,6 +72,8 @@ def update():
             state = "leaderboard"
         elif menu_result == "contributor":
             state = "contributor"
+        elif menu_result == "settings":
+            state = "settings"
     elif state == "naming":
         player = Name(SCREEN).Login()
         if player == "menu":
@@ -108,13 +110,18 @@ def update():
         if ui.button(SCREEN, SCREEN_HEIGHT // 2, "Quit", click_sound=pygame.mixer.Sound("Assets/Sounds/getout.wav")):
             state = "menu"
     elif state == "contributor":
-        if contributor.update() == "menu":
+        contribute_result = contributor.update()
+        if contribute_result == "menu":
             state = "menu"
-        if contributor.update() == "thanks":
+        if contribute_result == "thanks":
             state = "thanks"
     elif state == "thanks":
         if contributor.draw_thanks(SCREEN) == "menu":
             state = "menu"
+    elif state == "settings":
+        if menu.MusicChanging() == "menu":
+            state = "menu"
+        
     pygame.display.update()
     mainClock.tick(FPS)
     

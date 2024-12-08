@@ -1,5 +1,6 @@
 import pygame
 import sys
+import time
 from settings import *
 from background import Background
 import ui
@@ -16,6 +17,9 @@ class Menu:
         self.logo = image.load("Assets/logo.png", size=(700, 230))
         self.design = image.load("Assets/design.jpg", size=(300, 300))
         self.wordpress = image.load("Assets/wordpress.png", size=(200, 200))
+        self.settin = image.load("Assets/settin.png", size=(100, 100))
+        self.show_music_buttons = False
+        self.last_settings_click_time = 0
 
     def draw(self):
         self.background.draw(self.surface)
@@ -43,3 +47,19 @@ class Menu:
         if ui.button(self.surface, 400+BUTTONS_SIZES[1]*1.5, "Get out", click_sound=self.getout):
             pygame.quit()
             sys.exit()
+        
+        current_time = time.time()
+        if ui.Settin(self.surface, self.settin, 1500, 700):
+            if current_time - self.last_settings_click_time > CLICK_COOLDOWN:
+                self.show_music_buttons = not self.show_music_buttons
+                self.last_settings_click_time = current_time
+
+        if self.show_music_buttons:
+            self.MusicChanging()
+
+    def MusicChanging(self):
+        ui.music_button(self.surface, 260, "Passing Memories", PassingMemories, click_sound=None)
+        ui.music_button(self.surface, 340, "Toward The Light", TowardTheLight, click_sound=None)
+        ui.music_button(self.surface, 420, "Die For You", DieForYou, click_sound=self.click_sound)
+        ui.music_button(self.surface, 500, "Electro Swing", ElectroSwing, click_sound=None)
+        ui.music_button(self.surface, 580, "Tender Strength", TenderStrength, click_sound=None)

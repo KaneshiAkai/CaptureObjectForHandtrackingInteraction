@@ -19,6 +19,7 @@ class Game:
         self.player = player
         self.design = image.load("Assets/design.jpg", size=(300, 300))
         self.pause_start_time = None 
+        self.last_continue_click_time = 0
 
         # Load camera
         self.cap = cv2.VideoCapture(0)
@@ -129,9 +130,12 @@ class Game:
 
         else: 
             image.draw(self.surface, self.design, (SCREEN_WIDTH // 1.3, 300), pos_mode="center")
+            current_time = time.time()
             if ui.button(self.surface, 400, "Continue", click_sound=self.sounds["getout"]):
-                Leaderboard.WriteLeaderboard("leaderboard.csv", self.player, self.score)
-                return "leaderboard"
+                if current_time - self.last_continue_click_time > CLICK_COOLDOWN:
+                    self.last_continue_click_time = current_time
+                    Leaderboard.WriteLeaderboard("leaderboard.csv", self.player, self.score)
+                    return "leaderboard"
 
         cv2.imshow("Frame", self.frame)
         cv2.waitKey(1)

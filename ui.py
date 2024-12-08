@@ -190,3 +190,48 @@ def linkWordpress (surface, pic, pos_x, pos_y):
         pic.set_alpha(255)  # Reset to original color
 
     return False
+
+
+def Settin (surface, pic, pos_x, pos_y):
+    image.draw(surface, pic, (pos_x, pos_y), pos_mode="center")
+    rect = pygame.Rect((pos_x - pic.get_width() // 2, pos_y - pic.get_height() // 2), (pic.get_width(), pic.get_height()))
+    if rect.collidepoint(pygame.mouse.get_pos()):
+        pic.set_alpha(200)
+        if pygame.mouse.get_pressed()[0]:
+            return True
+    else:
+        pic.set_alpha(255)
+    return False
+
+def music_button(surface, pos_y, text, music_file, click_sound=None, font=FONTS["medium"]):
+    global last_click_time
+    width, height = (340,70)
+    pos_x = SCREEN_WIDTH // 1.25
+    corner_radius = 20  # Radius for rounded corners
+
+    rect = pygame.Rect(pos_x - width // 2, pos_y, width, height)
+
+    on_button = False
+    if rect.collidepoint(pygame.mouse.get_pos()):
+        color = COLORS["blue"]
+        on_button = True
+    else:
+        color = COLORS["pink"]
+
+    pygame.draw.rect(surface, color, rect, border_radius=corner_radius)  # Draw rounded rectangle
+
+    # Draw text
+    if text is not None:
+        draw_text(surface, text, rect.center, COLORS["quote"], font=FONTS["supersmall"], pos_mode="center",
+                  shadow=False)
+
+    current_time = time.time()
+    if on_button and pygame.mouse.get_pressed()[0]:  # If the user clicks the button
+        if current_time - last_click_time > CLICK_COOLDOWN:  # Check if cooldown period has passed
+            last_click_time = current_time  # Update the last click time
+            if click_sound is not None:  # Play click sound if needed
+                click_sound.play()
+            pygame.mixer.music.load(music_file)
+            pygame.mixer.music.play(-1)
+            return True
+    return False
