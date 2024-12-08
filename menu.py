@@ -60,6 +60,6 @@ class Menu:
     def MusicChanging(self):
         ui.music_button(self.surface, 260, "Passing Memories", PassingMemories, click_sound=None)
         ui.music_button(self.surface, 340, "Toward The Light", TowardTheLight, click_sound=None)
-        ui.music_button(self.surface, 420, "Die For You", DieForYou, click_sound=self.click_sound)
+        ui.music_button(self.surface, 420, "Die For You", DieForYou, click_sound=None)
         ui.music_button(self.surface, 500, "Electro Swing", ElectroSwing, click_sound=None)
         ui.music_button(self.surface, 580, "Tender Strength", TenderStrength, click_sound=None)
