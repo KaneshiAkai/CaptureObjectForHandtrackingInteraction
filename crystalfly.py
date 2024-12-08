@@ -25,7 +25,7 @@ class Crystalfly:
             start_pos = (-size[0], random.randint(size[1], SCREEN_HEIGHT-size[1]))
             self.vel = [vel, 0]
         if moving_direction == "left":
-            start_pos = (SCREEN_WIDTH + size[0], random.randint(size[1], SCREEN_HEIGHT-size[1]))
+            start_pos = (SCREEN_WIDTH + size[0], random.randint(size[1], SCREEN_HEIGHT-size[1]))        
             self.vel = [-vel, 0]
         if moving_direction == "up":
             start_pos = (random.randint(size[0], SCREEN_WIDTH-size[0]), SCREEN_HEIGHT+size[1])

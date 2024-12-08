@@ -16,7 +16,6 @@ class Octobaby(Crystalfly):
         self.images = [image.load(f"Assets/octobaby/octobaby.png", size=size, flip=moving_direction=="right")]
         self.current_frame = 0
         self.animation_timer = 0
-        
 
     def kill(self, crystalflys): # remove the  from the list
         crystalflys.remove(self)

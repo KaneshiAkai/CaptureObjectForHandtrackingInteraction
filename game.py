@@ -32,6 +32,7 @@ class Game:
         
         self.level1 = image.load("Assets/level1.jpg", size=(300, 300))
         self.level2 = image.load("Assets/level2.png", size=(300, 424))
+        self.level3 = image.load("Assets/level3.png", size=(300, 483))
     
     
     def reset(self): # reset all the needed variables
@@ -58,6 +59,8 @@ class Game:
 
             # spawn a other after the half of the game
             if self.time_left < GAME_DURATION/2:
+                self.objects.append(Octobaby())
+            if self.score >= 30:
                 self.objects.append(Crystalfly())
 
     def load_camera(self):
@@ -87,17 +90,19 @@ class Game:
         self.time_left = max(round(GAME_DURATION - (time.time() - self.game_start_time), 1), 0)
 
     def level(self):
+        global CRYSTALFLYS_SPAWN_TIME, CRYSTALFLYS_MOVE_SPEED
         if self.score < 15:
+            # image.draw(self.surface, self.level3, (SCREEN_WIDTH // 1.1, 560), pos_mode="center")
             image.draw(self.surface, self.level1, (SCREEN_WIDTH // 1.1, 500), pos_mode="center")
-        if 15<= self.score < 30:
+        if 15 <= self.score < 30:
             image.draw(self.surface, self.level2, (SCREEN_WIDTH // 1.1, 600), pos_mode="center")
-            CRYSTALFLYS_SPAWN_TIME = 0.3
-        if self.score >= 30:
-            CRYSTALFLYS_SPAWN_TIME = 0.2
-        if self.score >= 40:
-            CRYSTALFLYS_SPAWN_TIME = 0.1
-        if self.score >= 50:
-            CRYSTALFLYS_SPAWN_TIME = 0.05
+            CRYSTALFLYS_SPAWN_TIME = 0.7
+            CRYSTALFLYS_MOVE_SPEED = CRYSTALFLYS_MOVE_SPEED_LEVEL_2
+        if 30 <= self.score:
+            image.draw(self.surface, self.level3, (SCREEN_WIDTH // 1.1, 560), pos_mode="center")
+            CRYSTALFLYS_SPAWN_TIME = 0.4
+            CRYSTALFLYS_MOVE_SPEED = CRYSTALFLYS_MOVE_SPEED_LEVEL_3
+
 
     def update(self):
         self.load_camera()
@@ -126,7 +131,6 @@ class Game:
             image.draw(self.surface, self.design, (SCREEN_WIDTH // 1.3, 300), pos_mode="center")
             if ui.button(self.surface, 400, "Continue", click_sound=self.sounds["getout"]):
                 Leaderboard.WriteLeaderboard("leaderboard.csv", self.player, self.score)
-                # Leaderboard.list_leaderboard.sort(subject: leaderboard.score)
                 return "leaderboard"
 
         cv2.imshow("Frame", self.frame)

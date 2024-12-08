@@ -81,9 +81,10 @@ def update():
             state = "game"
             game.reset() 
     elif state == "game":
-        if game.update() == "leaderboard":
+        game_result = game.update()
+        if game_result == "leaderboard":
             state = "leaderboard"
-        if game.update() == "pause":
+        elif game_result == "pause":
             game.pause_start_time = time.time()
             state = "pause"
     elif state == "leaderboard":

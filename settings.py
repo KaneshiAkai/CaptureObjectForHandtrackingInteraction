@@ -27,6 +27,8 @@ ANIMATION_SPEED = 0.08 # the frame of the insects will change every X sec
 GAME_DURATION = 60
 CRYSTALFLYS_SPAWN_TIME = 1
 CRYSTALFLYS_MOVE_SPEED = {"min": 1, "max": 5}
+CRYSTALFLYS_MOVE_SPEED_LEVEL_2 = {"min": 4, "max": 9}
+CRYSTALFLYS_MOVE_SPEED_LEVEL_3 = {"min": 7, "max": 14}
 OCTOBABY_PENALITY = 1 
 
 # colors
