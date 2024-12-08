@@ -33,7 +33,7 @@ class Contributor:
                 image.draw(self.surface, contributor["image"], (x_offset,  y_offset), pos_mode="center")
                 ui.draw_text(self.surface, contributor["name"], (x_offset, y_offset + 260), COLORS["yellow"], font=FONTS["medium"], pos_mode="center")
                 x_offset += 800
-            if ui.rect_button(self.surface, 600, "Special Thanks", click_sound=None):
+            if ui.rect_button(self.surface, 600, "Special Thanks", click_sound=pygame.mixer.Sound("Assets/Sounds/button.wav")):
                 return "thanks"
 
     def update(self):
@@ -60,7 +60,7 @@ class Contributor:
             # Draw text
             ui.draw_text(self.surface, thanks["name"], (x_offset, y_offset + 260), COLORS["yellow"], font=FONTS["medium"], pos_mode="center")
             x_offset += 500
-        if ui.button(self.surface, SCREEN_HEIGHT - 100, "Back to Menu", click_sound=None):
+        if ui.button(self.surface, SCREEN_HEIGHT - 100, "Back to Menu", click_sound=pygame.mixer.Sound("Assets/Sounds/button.wav")):
             return "menu"
         pygame.display.flip()
 

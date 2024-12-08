@@ -28,7 +28,10 @@ class Game:
         self.sounds["slap"].set_volume(SOUNDS_VOLUME)
         self.sounds["dattebayo"] = pygame.mixer.Sound(f"Assets/Sounds/dattebayo.wav")
         self.sounds["dattebayo"].set_volume(SOUNDS_VOLUME)
-        self.sounds["getout"] = pygame.mixer.Sound(f"Assets/Sounds/getout.wav")
+        self.sounds["getout"] = pygame.mixer.Sound(f"Assets/Sounds/button.wav")
+        
+        self.level1 = image.load("Assets/level1.jpg", size=(300, 300))
+        self.level2 = image.load("Assets/level2.png", size=(300, 424))
     
     
     def reset(self): # reset all the needed variables
@@ -55,7 +58,7 @@ class Game:
 
             # spawn a other after the half of the game
             if self.time_left < GAME_DURATION/2:
-                self.objects.append(Octobaby())
+                self.objects.append(Crystalfly())
 
     def load_camera(self):
         _, self.frame = self.cap.read()
@@ -83,13 +86,26 @@ class Game:
     def game_time_update(self):
         self.time_left = max(round(GAME_DURATION - (time.time() - self.game_start_time), 1), 0)
 
+    def level(self):
+        if self.score < 15:
+            image.draw(self.surface, self.level1, (SCREEN_WIDTH // 1.1, 500), pos_mode="center")
+        if 15<= self.score < 30:
+            image.draw(self.surface, self.level2, (SCREEN_WIDTH // 1.1, 600), pos_mode="center")
+            CRYSTALFLYS_SPAWN_TIME = 0.3
+        if self.score >= 30:
+            CRYSTALFLYS_SPAWN_TIME = 0.2
+        if self.score >= 40:
+            CRYSTALFLYS_SPAWN_TIME = 0.1
+        if self.score >= 50:
+            CRYSTALFLYS_SPAWN_TIME = 0.05
 
     def update(self):
         self.load_camera()
         self.set_hand_position()
-        self.game_time_update()      
+        self.game_time_update() 
         self.draw()
-
+        self.level() 
+        
         if self.time_left > 0:
             if (not self.hand_tracking.hand_detected) and (GAME_DURATION - self.time_left > 2):
                 return "pause"

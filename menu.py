@@ -11,7 +11,8 @@ class Menu:
         self.surface = surface
         self.background = Background()
         self.click_sound = pygame.mixer.Sound(f"Assets/Sounds/slap.wav")
-        self.getout = pygame.mixer.Sound(f"Assets/Sounds/getout.wav")
+        self.getout = pygame.mixer.Sound(f"Assets/Sounds/button.wav")
+        self.start = pygame.mixer.Sound(f"Assets/Sounds/start.wav")
         self.logo = image.load("Assets/logo.png", size=(700, 230))
         self.design = image.load("Assets/design.jpg", size=(300, 300))
         self.wordpress = image.load("Assets/wordpress.png", size=(200, 200))
@@ -27,14 +28,14 @@ class Menu:
 
     def update(self):
         self.draw()
-        if ui.button(self.surface, 400-BUTTONS_SIZES[1]*1.5, "Go Buddy", click_sound=None):
+        if ui.button(self.surface, 400-BUTTONS_SIZES[1]*1.5, "Go Buddy", click_sound=self.start):
             return "naming"
         
-        if ui.button(self.surface, 400, "Leaderboard", click_sound=None):
+        if ui.button(self.surface, 400, "Leaderboard", click_sound=self.getout):
             print("leader")
             return "leaderboard"
         
-        if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=None):
+        if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=self.start):
             return "contributor"
         
         ui.linkWordpress(self.surface, self.wordpress, 1400, 150)

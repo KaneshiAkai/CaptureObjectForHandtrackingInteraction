@@ -43,6 +43,6 @@ SOUNDS_VOLUME = 1
 # fonts
 pygame.font.init()
 FONTS = {}
-FONTS["small"] = pygame.font.Font("\Documents\Font\zh-cn.ttf", 40)
-FONTS["medium"] = pygame.font.Font("\Documents\Font\zh-cn.ttf", 50)
-FONTS["big"] = pygame.font.Font("\Documents\Font\zh-cn.ttf", 100)
+FONTS["small"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 40)
+FONTS["medium"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 50)
+FONTS["big"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 100)

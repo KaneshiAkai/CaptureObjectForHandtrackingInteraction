@@ -39,6 +39,6 @@ class Name:
             pygame.draw.rect(self.surface, COLORS["buttons"]["shadow"], self.input_box, 2)  # Draw border
             self.draw_decorations()
             ui.draw_input_box(self.surface, self.input_box, self.input_text, self.font)
-            if ui.button(self.surface, 600, "Quit", click_sound=None):
+            if ui.button(self.surface, 600, "Quit", click_sound=pygame.mixer.Sound("Assets/Sounds/start.wav")):
                 return "menu"
             pygame.display.flip()
