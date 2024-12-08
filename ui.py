@@ -178,14 +178,18 @@ def draw_gradient_frame(surface, x, y, width, height, thickness, color_start, co
             pygame.draw.rect(surface, color, (x - width // 2 - i, y - height // 2 - i, width + 2 * i, height + 2 * i), 1)
             
 def linkWordpress (surface, pic, pos_x, pos_y):
+    global last_click_time
     image.draw(surface, pic, (pos_x, pos_y), pos_mode="center")
     rect = pygame.Rect((pos_x - pic.get_width() // 2, pos_y - pic.get_height() // 2), (pic.get_width(), pic.get_height()))
     
+    current_time = time.time()
     if rect.collidepoint(pygame.mouse.get_pos()):
         pic.set_alpha(200)  # Make the image lighter
         if pygame.mouse.get_pressed()[0]:
-            webbrowser.open("https://bmeelearning.wordpress.com/2024/12/01/20241-et2031e-152560-group-19-capture-objects-for-hand-tracking-interraction/")
-            return True
+            if current_time - last_click_time > CLICK_COOLDOWN:
+                last_click_time = current_time
+                webbrowser.open("https://bmeelearning.wordpress.com/2024/12/01/20241-et2031e-152560-group-19-capture-objects-for-hand-tracking-interraction/")
+                return True
     else:
         pic.set_alpha(255)  # Reset to original color
 
