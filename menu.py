@@ -35,11 +35,11 @@ class Menu:
         if ui.button(self.surface, 400-BUTTONS_SIZES[1]*1.5, "Go Buddy", click_sound=self.start):
             return "naming"
         
-        if ui.button(self.surface, 400, "Leaderboard", click_sound=self.getout):
+        if ui.button(self.surface, 400, "Leaderboard", click_sound=None):
             print("leader")
             return "leaderboard"
         
-        if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=self.start):
+        if ui.vertical_button(self.surface, 50, 80, "Contributors", click_sound=None):                  
             return "contributor"
         
         ui.linkWordpress(self.surface, self.wordpress, 1400, 150)
@@ -58,7 +58,7 @@ class Menu:
             self.MusicChanging()
 
     def MusicChanging(self):
-        ui.music_button(self.surface, 260, "Passing Memories", PassingMemories, click_sound=None)
+        ui.music_button(self.surface, 260, "Zoltraak", Zoltraak, click_sound=None)
         ui.music_button(self.surface, 340, "Toward The Light", TowardTheLight, click_sound=None)
         ui.music_button(self.surface, 420, "Die For You", DieForYou, click_sound=None)
         ui.music_button(self.surface, 500, "Electro Swing", ElectroSwing, click_sound=None)

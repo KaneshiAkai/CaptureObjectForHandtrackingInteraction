@@ -53,7 +53,7 @@ FONTS["medium"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 50)
 FONTS["big"] = pygame.font.Font("Assets/Font/zh-cn.ttf", 100)
 
 #music
-PassingMemories = "Assets/Sounds/Passing Memories (feat. Faouzia) (Genshin Impact's 4Th Anniversary English Theme Song).mp3"
+Zoltraak = "Assets/Sounds/Zoltraak.mp3"
 TowardTheLight = "Assets/Sounds/Jacoo - Towards The Light.mp3"
 DieForYou = "Assets/Sounds/Die For You ft. Grabbitz  Official Music Video  VALORANT Champions 2021.mp3"
 ElectroSwing = "Assets/Sounds/iluvvmyclique - Electro Swing (sped up).mp3"
