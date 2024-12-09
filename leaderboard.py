@@ -12,6 +12,7 @@ class Leaderboard:
         self.background = Background()
         self.image = image.load(image_path, size=(SCREEN_WIDTH, SCREEN_HEIGHT), convert="default")
         self.design = image.load("Assets/design.jpg", size=(300, 300))
+        self.frame = image.load("Assets/frame.png", size=(800, 600))
         
     def ReadLeaderboard(file_path):
         with open(file_path, mode='r') as file:
@@ -33,14 +34,15 @@ class Leaderboard:
     
     def DisplayLeaderboard(self, leaderboard):
         self.draw(self.surface)
+        image.draw(self.surface, self.frame, (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2), pos_mode="center")
         image.draw(self.surface, self.design, (SCREEN_WIDTH // 1.3, 300), pos_mode="center")
-        ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["quote"], font=FONTS["big"], pos_mode="center")
+        ui.draw_text(self.surface, "Leaderboard", (SCREEN_WIDTH // 2, 80), COLORS["yellow"], font=FONTS["big"], pos_mode="center")
         
         y_offset = 200
         n=0
         for i in leaderboard:
             if n<8:
-                ui.draw__white_border_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['mocha'], font=FONTS["medium"], pos_mode="center")
+                ui.draw__white_border_text(self.surface, f"{i['player']}: {i['score']}", (SCREEN_WIDTH // 2, y_offset), COLORS['quote'], font=FONTS["medium"], pos_mode="center")
                 y_offset += 50
                 if ui.button(self.surface, 700, "Back to Menu", click_sound = None):
                     Leaderboard.list_leaderboard.clear()
