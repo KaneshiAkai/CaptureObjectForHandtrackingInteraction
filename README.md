@@ -5,7 +5,7 @@
       ```
       pip install mediapipe
       ```
-  - Install pygame
+  - Install pygame <br />
       input this command in terminal
       ```
       pip install pygame
