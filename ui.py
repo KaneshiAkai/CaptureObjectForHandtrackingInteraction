@@ -195,7 +195,6 @@ def linkWordpress (surface, pic, pos_x, pos_y):
 
     return False
 
-
 def Settin (surface, pic, pos_x, pos_y):
     image.draw(surface, pic, (pos_x, pos_y), pos_mode="center")
     rect = pygame.Rect((pos_x - pic.get_width() // 2, pos_y - pic.get_height() // 2), (pic.get_width(), pic.get_height()))

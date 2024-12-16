@@ -64,3 +64,14 @@ class Crystalfly:
     def kill(self, crystalflys): # remove the CRYSTALFLY from the list  #viết thường hết
         crystalflys.remove(self)                                      #viết thường hết
         return 1
+
+
+class PyroCrystalfly(Crystalfly):
+    def __init__(self):
+        super().__init__()
+        self.images = [image.load("Assets/crystalfly/pyro_crystalfly.png", size=self.rect.size, flip=self.vel[0] > 0)]
+
+    def kill(self, crystalflys, game_instance):
+        crystalflys.remove(self)
+        game_instance.pyro_caught_time = time.time()
+        return 1  # Ensure it returns 1 to increment the score

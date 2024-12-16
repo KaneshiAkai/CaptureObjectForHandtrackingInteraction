@@ -14,12 +14,24 @@ class Menu:
         self.click_sound = pygame.mixer.Sound(f"Assets/Sounds/slap.wav")
         self.getout = pygame.mixer.Sound(f"Assets/Sounds/button.wav")
         self.start = pygame.mixer.Sound(f"Assets/Sounds/start.wav")
-        self.logo = image.load("Assets/logo.png", size=(700, 230))
         self.design = image.load("Assets/design.jpg", size=(300, 300))
+        self.logo = image.load("Assets/logo.png", size=(700, 230))
         self.wordpress = image.load("Assets/wordpress.png", size=(200, 200))
         self.settin = image.load("Assets/settin.png", size=(100, 100))
         self.show_music_buttons = False
         self.last_settings_click_time = 0
+        self.show_skin_buttons = False
+        
+        #skin
+        self.skins = [
+            image.load("Assets/skin/huy.png", size=(100, 100)),
+            image.load("Assets/skin/chill.jpg", size=(100, 100)),
+            image.load("Assets/skin/thanos.jpg", size=(100, 100)),
+            
+        ]
+        self.selected_skin = None
+
+
 
     def draw(self):
         self.background.draw(self.surface)
@@ -53,9 +65,12 @@ class Menu:
             if current_time - self.last_settings_click_time > CLICK_COOLDOWN:
                 self.show_music_buttons = not self.show_music_buttons
                 self.last_settings_click_time = current_time
-
+        
         if self.show_music_buttons:
             self.MusicChanging()
+            
+        if self.show_skin_buttons:
+            self.SkinChanging()
 
     def MusicChanging(self):
         ui.music_button(self.surface, 260, "Zoltraak", Zoltraak, click_sound=None)
@@ -63,3 +78,25 @@ class Menu:
         ui.music_button(self.surface, 420, "Die For You", DieForYou, click_sound=None)
         ui.music_button(self.surface, 500, "Electro Swing", ElectroSwing, click_sound=None)
         ui.music_button(self.surface, 580, "Yêu 5", Yeu5, click_sound=None)
+  
+        
+    def SkinChanging(self):
+        pos_x, pos_y = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
+        width, height = 1000, 500
+        rect = pygame.Rect(pos_x - width // 2, pos_y - height // 2, width, height)
+        color = COLORS["blue"]
+        pygame.draw.rect(self.surface, color, rect)
+        # Display skin images and handle clicks
+        for i, skin in enumerate(self.skins):
+            skin_x = pos_x - width // 2 + (i * 150) + 50
+            skin_y = pos_y - height // 2 + 50
+            if skin == self.selected_skin:
+                frame_color = COLORS["gray"]
+            else:
+                frame_color = COLORS["black"]
+            pygame.draw.rect(self.surface, frame_color, (skin_x - 50, skin_y - 50, 100, 100), 5)
+            image.draw(self.surface, skin, (skin_x, skin_y), pos_mode="center")
+            if pygame.Rect(skin_x - 50, skin_y - 50, 100, 100).collidepoint(pygame.mouse.get_pos()):
+                if pygame.mouse.get_pressed()[0]:
+                    self.selected_skin = skin
+                    ui.change_hand_skin(self.hand, skin)

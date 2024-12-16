@@ -9,6 +9,7 @@ from menu import Menu
 from leaderboard import Leaderboard
 from name import Name
 from contributor import Contributor
+from hand import Hand
 
 
 

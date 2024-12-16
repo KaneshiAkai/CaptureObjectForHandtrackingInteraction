@@ -5,7 +5,7 @@ from settings import *
 from background import Background
 from hand import Hand
 from hand_tracking import HandTracking
-from crystalfly import Crystalfly
+from crystalfly import Crystalfly, PyroCrystalfly  # Import PyroCrystalfly
 from octobaby import Octobaby
 import cv2
 import ui
@@ -44,6 +44,7 @@ class Game:
         self.score = 0
         self.game_start_time = time.time()
         self.pause_start_time = None
+        self.pyro_caught_time = None  # Track when Pyro Crystalfly is caught
 
 
     def spawn_objects(self):
@@ -56,7 +57,10 @@ class Game:
             if random.randint(0, 100) < nb:
                 self.objects.append(Octobaby())
             else:
-                self.objects.append(Crystalfly())
+                if (random.randint(0, 100) < 5):  # 5% chance to spawn Pyro Crystalfly
+                    self.objects.append(PyroCrystalfly())
+                else:
+                    self.objects.append(Crystalfly())
 
             # spawn a other after the half of the game
             if self.time_left < GAME_DURATION/2:
@@ -106,6 +110,27 @@ class Game:
 
 
     def update(self):
+        if self.pyro_caught_time and time.time() - self.pyro_caught_time < 5:
+            # Continue game for 5 seconds after catching Pyro Crystalfly
+            self.load_camera()
+            self.set_hand_position()
+            self.draw()
+            self.level()
+            for object in self.objects:
+                object.move()
+            self.hand.left_click = self.hand_tracking.hand_closed
+            if self.hand.left_click:
+                self.hand.image = self.hand.image_smaller.copy()
+            else:
+                self.hand.image = self.hand.orig_image.copy()
+            self.score = self.hand.kill_objects(self.objects, self.score, self.sounds, self)
+            return
+
+        if self.pyro_caught_time:
+            # Adjust game start time to account for the pause duration
+            self.game_start_time += time.time() - self.pyro_caught_time
+            self.pyro_caught_time = None
+
         self.load_camera()
         self.set_hand_position()
         self.game_time_update() 
@@ -124,7 +149,7 @@ class Game:
                 self.hand.image = self.hand.image_smaller.copy()
             else:
                 self.hand.image = self.hand.orig_image.copy()
-            self.score = self.hand.kill_objects(self.objects, self.score, self.sounds)
+            self.score = self.hand.kill_objects(self.objects, self.score, self.sounds, self)
             for object in self.objects:
                 object.move()
 

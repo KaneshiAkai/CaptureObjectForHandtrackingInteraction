@@ -51,7 +51,7 @@ class Contributor:
         y_offset = 370
         frame_color_start = COLORS["black"]
         frame_color_end = COLORS["yellow"]
-        frame_thickness = 10  # Increased thickness
+        frame_thickness = 10  
         for thanks in self.thanks:
             # Draw gradient frame
             ui.draw_gradient_frame(surface, x_offset, y_offset, thanks["image"].get_width(), thanks["image"].get_height(), frame_thickness, frame_color_start, frame_color_end)
