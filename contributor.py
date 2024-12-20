@@ -53,11 +53,8 @@ class Contributor:
         frame_color_end = COLORS["yellow"]
         frame_thickness = 10  
         for thanks in self.thanks:
-            # Draw gradient frame
             ui.draw_gradient_frame(surface, x_offset, y_offset, thanks["image"].get_width(), thanks["image"].get_height(), frame_thickness, frame_color_start, frame_color_end)
-            # Draw image
             image.draw(self.surface, thanks["image"], (x_offset, y_offset), pos_mode="center")
-            # Draw text
             ui.draw_text(self.surface, thanks["name"], (x_offset, y_offset + 260), COLORS["yellow"], font=FONTS["medium"], pos_mode="center")
             x_offset += 500
         if ui.button(self.surface, SCREEN_HEIGHT - 100, "Back to Menu", click_sound=None):

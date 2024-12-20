@@ -39,30 +39,18 @@ class Crystalfly:
     def move(self):
         self.rect.move_ip(self.vel)
 
-
-    def animate(self): # change the frame of the insect when needed
-        t = time.time()
-        if t > self.animation_timer:
-            self.animation_timer = t + ANIMATION_SPEED
-            self.current_frame += 1
-            if self.current_frame > len(self.images)-1:
-                self.current_frame = 0
-
-
     def draw_hitbox(self, surface):
         pygame.draw.rect(surface, (200, 60, 0), self.rect)
 
 
 
     def draw(self, surface):
-        self.animate()
         image.draw(surface, self.images[self.current_frame], self.rect.center, pos_mode="center")
         if DRAW_HITBOX:
             self.draw_hitbox(surface)
 
-
-    def kill(self, crystalflys): # remove the CRYSTALFLY from the list  #viết thường hết
-        crystalflys.remove(self)                                      #viết thường hết
+    def kill(self, crystalflys):
+        crystalflys.remove(self)                               
         return 1
 
 
@@ -74,4 +62,4 @@ class PyroCrystalfly(Crystalfly):
     def kill(self, crystalflys, game_instance):
         crystalflys.remove(self)
         game_instance.pyro_caught_time = time.time()
-        return 1  # Ensure it returns 1 to increment the score
+        return 1 

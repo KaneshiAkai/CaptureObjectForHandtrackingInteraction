@@ -44,25 +44,22 @@ class Game:
         self.score = 0
         self.game_start_time = time.time()
         self.pause_start_time = None
-        self.pyro_caught_time = None  # Track when Pyro Crystalfly is caught
+        self.pyro_caught_time = None  
 
 
     def spawn_objects(self):
         t = time.time()
         if t > self.objects_spawn_timer:
             self.objects_spawn_timer = t + CRYSTALFLYS_SPAWN_TIME
-
             #increase the probability that the object will be a over time
             nb = (GAME_DURATION-self.time_left)/GAME_DURATION * 100  / 2  # increase from 0 to 50 during all  the game (linear)
             if random.randint(0, 100) < nb:
                 self.objects.append(Octobaby())
             else:
-                if (random.randint(0, 100) < 5):  # 5% chance to spawn Pyro Crystalfly
+                if (random.randint(0, 100) < 10):  
                     self.objects.append(PyroCrystalfly())
                 else:
                     self.objects.append(Crystalfly())
-
-            # spawn a other after the half of the game
             if self.time_left < GAME_DURATION/2:
                 self.objects.append(Octobaby())
             if self.score >= 30:
@@ -111,6 +108,8 @@ class Game:
 
     def update(self):
         if self.pyro_caught_time and time.time() - self.pyro_caught_time < 5:
+            if (not self.hand_tracking.hand_detected) and (GAME_DURATION - self.time_left > 2):
+                return "pause"
             # Continue game for 5 seconds after catching Pyro Crystalfly
             self.load_camera()
             self.set_hand_position()
@@ -119,6 +118,7 @@ class Game:
             for object in self.objects:
                 object.move()
             self.hand.left_click = self.hand_tracking.hand_closed
+            print("Hand closed", self.hand.left_click)
             if self.hand.left_click:
                 self.hand.image = self.hand.image_smaller.copy()
             else:
@@ -127,7 +127,6 @@ class Game:
             return
 
         if self.pyro_caught_time:
-            # Adjust game start time to account for the pause duration
             self.game_start_time += time.time() - self.pyro_caught_time
             self.pyro_caught_time = None
 
@@ -141,8 +140,6 @@ class Game:
             if (not self.hand_tracking.hand_detected) and (GAME_DURATION - self.time_left > 2):
                 return "pause"
             self.spawn_objects()
-            (x, y) = self.hand_tracking.get_hand_center()
-            self.hand.rect.center = (x, y)
             self.hand.left_click = self.hand_tracking.hand_closed
             print("Hand closed", self.hand.left_click)
             if self.hand.left_click:
@@ -162,5 +159,5 @@ class Game:
                     Leaderboard.WriteLeaderboard("leaderboard.csv", self.player, self.score)
                     return "leaderboard"
 
-        cv2.imshow("Frame", self.frame)
+        cv2.imshow("The Fat Rat", self.frame)
         cv2.waitKey(1)

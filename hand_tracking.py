@@ -1,7 +1,6 @@
 import cv2
 import mediapipe as mp
 from settings import *
-import numpy as np
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
@@ -39,14 +38,14 @@ class HandTracking:
         if self.results.multi_hand_landmarks:
             self.hand_detected = True
             for hand_landmarks in self.results.multi_hand_landmarks:
-                x, y = hand_landmarks.landmark[9].x, hand_landmarks.landmark[9].y
+                x0, y0 = hand_landmarks.landmark[9].x, hand_landmarks.landmark[9].y
 
-                self.hand_x = int(x * SCREEN_WIDTH)
-                self.hand_y = int(y * SCREEN_HEIGHT)
+                self.hand_x = int(x0 * SCREEN_WIDTH)
+                self.hand_y = int(y0 * SCREEN_HEIGHT)
 
                 x1, y1 = hand_landmarks.landmark[12].x, hand_landmarks.landmark[12].y
 
-                if y1 > y:
+                if y1 > y0:
                     self.hand_closed = True
 
                 mp_drawing.draw_landmarks(
