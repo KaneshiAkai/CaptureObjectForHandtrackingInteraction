@@ -188,7 +188,7 @@ def linkWordpress (surface, pic, pos_x, pos_y):
         if pygame.mouse.get_pressed()[0]:
             if current_time - last_click_time > CLICK_COOLDOWN:
                 last_click_time = current_time
-                webbrowser.open("https://bmeelearning.wordpress.com/2024/12/01/20241-et2031e-152560-group-19-capture-objects-for-hand-tracking-interraction/")
+                webbrowser.open("https://bmeelearning.wordpress.com/2024/12/21/20241-et2031e-152560-group-19-capture-objects-for-hand-tracking-interraction-2/")
                 return True
     else:
         pic.set_alpha(255)  # Reset to original color
